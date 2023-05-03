@@ -5,7 +5,20 @@ for (let i = 0; i < drumList.length; i++) {
 function handleClick() {
   var buttonInnerHTML = this.innerHTML;
 
-  switch (buttonInnerHTML) {
+  onKey(buttonInnerHTML);
+
+  buttonAnimation(buttonInnerHTML);
+}
+
+document.addEventListener("keydown", function (event) {
+  onKey(event.key);
+
+  buttonAnimation(event.key);
+});
+
+function onKey(key) {
+  key = key.toLowerCase();
+  switch (key) {
     case "w":
       var tom1 = new Audio("sounds/tom-1.mp3");
       tom1.play();
@@ -40,5 +53,10 @@ function handleClick() {
   }
 }
 
-// var audio = new Audio("sounds/tom-1.mp3");
-// audio.play();
+function buttonAnimation(currentKey) {
+  var activeButton = document.querySelector("." + currentKey);
+  activeButton.classList.add("pressed");
+  setTimeout(function () {
+    activeButton.classList.remove("pressed");
+  }, 100);
+}
